@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "MirrorView entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "棱镜 - 设计稿实时预览"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "棱镜"
+    }
+  ]
+}

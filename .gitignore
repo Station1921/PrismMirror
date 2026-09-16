@@ -1,0 +1,31 @@
+# ---- build artifacts ----
+release/
+*.exe
+*.dll
+*.pdb
+*.so
+*.hap
+*.app
+
+# ---- deps ----
+node_modules/
+oh_modules/
+
+# ---- compile / cache ----
+__pycache__/
+*.py[cod]
+build/
+dist/
+.hvigor/
+.cxx/
+obj/
+bin/
+
+# ---- IDE ----
+.idea/
+.vs/
+.vscode/
+
+# ---- runtime / logs ----
+*.log
+temp/

@@ -1,0 +1,11 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "mirrorview",
+  "version": "1.0.0",
+  "description": "MirrorView - realtime design preview receiver for HarmonyOS.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {},
+  "devDependencies": {}
+}

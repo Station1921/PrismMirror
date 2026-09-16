@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>棱镜 · 推送预览</title>
+<link rel="icon" href="assets/prism-icon.png" type="image/png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo" src="assets/prism-icon.png" alt="棱镜">
+        <span class="title">棱镜 · PS 推送</span>
+      </div>
+      <div class="conn" id="conn"><span class="dot off" id="connDot"></span><span id="connText">检测服务</span></div>
+    </header>
+
+    <!-- ① 实时预览（置顶，占最大高度） -->
+    <section class="card preview-card">
+      <div class="preview-head"><span>实时预览</span><span class="preview-name mono" id="previewName">--</span></div>
+      <div class="preview-wrap" id="previewWrap">
+        <!-- 预览图: 无 src / 默认隐藏(CSS display:none), 仅在 onload 成功后显示;
+             alt 置空, 失败态不会有任何文字或破图图标落到界面上 -->
+        <img id="previewImg" alt="">
+        <!-- 占位层: 纯 CSS 绘制图形 + 文案, 承载 未推送/服务未运行/加载中/失败 全部空态 -->
+        <div class="preview-ph" id="previewPh">
+          <span class="ph-art" aria-hidden="true"></span>
+          <span class="ph-title" id="previewPhTitle">暂无画面</span>
+          <em id="previewPhNote">开启推送后此处实时显示画布</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② 本机 IP 卡片 -->
+    <section class="card">
+      <div class="card-head">本机 IP</div>
+      <div class="info-row"><span class="k">地址</span><span class="v mono" id="ipVal">--</span></div>
+      <!-- 手机直连输入: 仅界面占位, 连接功能暂未实现 -->
+      <div class="connect-row">
+        <input class="ip-input" id="phoneIp" type="text" placeholder="填写手机IP" autocomplete="off" spellcheck="false">
+        <button class="connect-btn" id="connectBtn" type="button">连接</button>
+      </div>
+    </section>
+
+    <!-- ③ 推送开关卡片 -->
+    <section class="card push-card">
+      <div class="card-head">推送开关</div>
+      <button id="pushBtn" class="push-btn">推送预览</button>
+      <div class="field">
+        <label>推送内容</label>
+        <!-- 推送范围只保留两项: 「当前画板」已兼备整画布能力(有画板推画板 / 无画板自动退整画布),
+             故不再单独暴露「整个画布」。宿主与服务端的 canvas 分支保留: 旧版客户端与
+             prismExternalPush 外部传参仍可能传 "canvas", 照旧整画布推送。
+             默认选中「当前画板」(selected): 打开面板即为 artboard, 不存在未选中/空值。 -->
+        <select id="mode">
+          <option value="artboard" selected>当前画板</option>
+          <option value="selection">当前选区</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>导出倍率</label>
+        <select id="scale">
+          <option value="1">1x（原尺寸）</option>
+          <option value="2">2x（放大两倍）</option>
+        </select>
+      </div>
+      <!-- 画布变动自动推送：写死开启，不再提供复选框，仅保留一行文本状态 -->
+      <div class="auto-row"><span class="k">画布变动自动推送</span><span class="v">已开启（实时跟随）</span></div>
+    </section>
+
+    <!-- ④ 服务日志卡片（置底，日志区可滚动） -->
+    <section class="card log-card">
+      <div class="card-head">服务日志</div>
+      <div class="info-row"><span class="k">服务</span><span class="v mono" id="svcAddr">--</span></div>
+      <div class="info-row"><span class="k">手机直连</span><span class="v mono" id="lanAddr">--</span></div>
+      <div class="info-row"><span class="k">最近推送</span><span class="v" id="lastInfo">--</span></div>
+      <div class="info-row"><span class="k">文档</span><span class="v" id="docInfo">服务已开启·未推送预览</span></div>
+      <div class="log" id="log"></div>
+    </section>
+  </div>
+<script src="js/CSInterface.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

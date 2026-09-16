@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   ExtensionBundleId="com.prism.mirror.ps"
+                   ExtensionBundleVersion="1.0.0"
+                   Version="7.0" Type="Overlay">
+  <ExtensionList>
+    <Extension Id="com.prism.mirror.ps.panel" Version="1.0.0" />
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="PHXS" Version="[24.0,99.0]" />
+    </HostList>
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="9.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.prism.mirror.ps.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./client/index.html</MainPath>
+          <ScriptPath>./host/main.jsx</ScriptPath>
+          <!-- 关闭 Chromium 后台节流: 面板折叠/被遮挡/切标签后, CEF 会把后台
+               页面的 setInterval 降频甚至暂停, 面板侧的心跳保活与画布跟随随之
+               停摆。必须写在 <Resources> 内才会被 CEP 读取 —— 此前误放在
+               根级(</DispatchInfoList> 之后), 等于从未生效。
+               CEF 命令行只在 Photoshop 启动时读取, 改完需重启 PS。 -->
+          <CEFCommandLine>
+            <Parameter>--disable-background-timer-throttling</Parameter>
+            <Parameter>--disable-backgrounding-occluded-windows</Parameter>
+            <Parameter>--disable-renderer-backgrounding</Parameter>
+            <Parameter>--disable-features=CalculateNativeWinOcclusion</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>棱镜 · 推送预览</Menu>
+          <Geometry>
+            <Size>
+              <Height>460</Height>
+              <Width>340</Width>
+            </Size>
+            <MinSize>
+              <Height>400</Height>
+              <Width>300</Width>
+            </MinSize>
+            <MaxSize>
+              <!-- 原为 900/600: 面板拉到该高度即拉不动并出现滚动条。
+                   放宽上限到 3000, 允许自由拉伸; 内部布局(.log)已改为
+                   随剩余空间伸缩, 面板拉高后日志区同步变高。 -->
+              <Height>3000</Height>
+              <Width>3000</Width>
+            </MaxSize>
+          </Geometry>
+          <Icons>
+            <Icon Path="icons/icon16.png" Type="Normal"/>
+            <Icon Path="icons/icon32.png" Type="Hover"/>
+            <Icon Path="icons/icon48.png" Type="Selected"/>
+          </Icons>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>
