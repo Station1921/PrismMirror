@@ -11,7 +11,9 @@ const UDP_PORT: number = 8787;
 const BEACON_LIMIT_MS: number = 10000;
 // HTTP 轮询失败的容忍期: 期间仍收到 beacon/近期成功过则保持在线, 避免单次抖动闪"离线"
 const OFFLINE_GRACE_MS: number = 5000;
-const DEFAULT_KEY: string = '192.168.1.27:8765';
+// 输入框默认填充值(占位符, 非真实地址): 实际使用时由 UDP 发现自动列出设备,
+// 或按 "电脑IP:端口" 手动填写; 请勿把本机地址硬编码提交到仓库。
+const DEFAULT_KEY: string = '192.168.1.100:8765';
 const DEFAULT_PORT: number = 8765;
 
 interface StatusData {
