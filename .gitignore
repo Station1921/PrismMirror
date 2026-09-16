@@ -29,3 +29,10 @@ bin/
 # ---- runtime / logs ----
 *.log
 temp/
+
+# ---- runtime data (frame relay / host lease / probes) ----
+data/watch/
+data/host.beat
+data/com_probe.json
+data/external_state.txt
+data/*.log
